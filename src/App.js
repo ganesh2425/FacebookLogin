@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/jsx-no-comment-textnodes */
+import { useState } from "react";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 function App() {
+  const [profile, setProfile] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      {!profile ? (
+        <LoginSocialFacebook
+          appId="1182376612380831"
+          onResolve={(response) => {
+            console.log(response);
+            setProfile(response.data);
+          }}
+          onReject={(error) => {
+            console.log(error);
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <FacebookLoginButton />
+        </LoginSocialFacebook>
+      ) : (
+        ""
+      )}
+
+      {profile ? (
+        <div>
+          <h2>{profile.name}</h2>
+          <h2>{profile.email}</h2>
+          <img src={profile.picture.data.url} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
