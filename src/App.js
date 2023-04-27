@@ -3,11 +3,15 @@
 import { useState } from "react";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
+import User from "./User";
+import Charts from "./Chart";
+import Google from "./Google";
 
 function App() {
   const [profile, setProfile] = useState(null);
 
   return (
+    <>
     <div>
       {!profile ? (
         <LoginSocialFacebook
@@ -36,6 +40,10 @@ function App() {
         ""
       )}
     </div>
+    <Charts/>
+    <User/>
+    <Google/>
+    </>
   );
 }
 
